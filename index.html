@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#080d0b" />
-<title>17–0 Football Challenge — Build 3.0</title>
+<meta name="theme-color" content="#0b0e12" />
+<title>17–0 Football Challenge — Build 3.1</title>
 <style>
 
 :root{
-  --bg:#080d0b;--bg2:#0c1210;--surface:#111815;--surface2:#151e1a;--surface3:#1a2520;
-  --line:rgba(229,245,235,.10);--line-strong:rgba(229,245,235,.17);--text:#f4f8f5;--muted:#93a39a;
-  --accent:#7cff8d;--accent-deep:#35d663;--accent-soft:rgba(124,255,141,.12);--gold:#f3cc74;--danger:#ff7f82;--blue:#8ed7ff;
+  --bg:#0b0e12;--bg2:#10141a;--surface:#151a20;--surface2:#1a2028;--surface3:#202833;
+  --line:rgba(226,235,244,.10);--line-strong:rgba(226,235,244,.18);--text:#f5f7fa;--muted:#9aa6b3;
+  --accent:#91a7bd;--accent-deep:#657b91;--accent-rgb:145,167,189;--accent-ink:#071015;--accent-soft:rgba(var(--accent-rgb),.12);--gold:#f3cc74;--danger:#ff7f82;--blue:#8ed7ff;
   --shadow:0 18px 50px rgba(0,0,0,.28);--shadow-soft:0 10px 28px rgba(0,0,0,.20);--radius:22px;--radius-sm:15px;
 }
 *{box-sizing:border-box}
 html{background:var(--bg);color-scheme:dark}
-body{margin:0;min-height:100%;padding-bottom:calc(28px + env(safe-area-inset-bottom));color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 540px at 50% -180px,rgba(124,255,141,.11),transparent 64%),linear-gradient(180deg,#090e0c 0%,#080d0b 100%);overflow-x:hidden}
+body{margin:0;min-height:100%;padding-bottom:calc(28px + env(safe-area-inset-bottom));color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 540px at 50% -180px,rgba(var(--accent-rgb),.11),transparent 64%),linear-gradient(180deg,#0d1117 0%,#0a0d12 100%);overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:32px 32px;mask-image:linear-gradient(180deg,#000,transparent 76%)}
 button{font:inherit}.hidden{display:none!important}
 .app{position:relative;width:min(100%,780px);margin:0 auto;padding:14px;z-index:1}
@@ -74,6 +74,36 @@ button{font:inherit}.hidden{display:none!important}
 @media(max-width:390px){.seg{gap:5px}.pill{padding:8px 7px}.pill span{font-size:11px}.pill small{font-size:8px}.slot{min-height:84px}.spin-team{font-size:27px}.player-card .card-frame{min-height:268px}.player-card .card-top{height:166px}.rating-ghost{font-size:92px}.player-card.legendary .rating-ghost{font-size:103px}.pname{font-size:18px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 
+
+/* Build 3.1 — franchise season systems */
+.theme-select{width:100%;min-height:52px;padding:0 12px;border-radius:13px;border:1px solid var(--line);background:#111820;color:var(--text);font:inherit;font-weight:800;outline:none}
+.theme-select:focus{border-color:rgba(var(--accent-rgb),.55);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.10)}
+.kicker,.eyebrow,.slot-key{color:var(--accent)}
+.live-dot{background:var(--accent);box-shadow:0 0 0 4px rgba(var(--accent-rgb),.08),0 0 14px rgba(var(--accent-rgb),.45)}
+.pill.active{border-color:rgba(var(--accent-rgb),.46);background:linear-gradient(180deg,rgba(var(--accent-rgb),.16),rgba(var(--accent-rgb),.07));box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 8px 20px rgba(0,0,0,.12)}
+.btn.primary{border-color:rgba(var(--accent-rgb),.45);background:linear-gradient(180deg,var(--accent),var(--accent-deep));color:var(--accent-ink);box-shadow:0 10px 28px rgba(var(--accent-rgb),.17)}
+.progress-pill{background:var(--accent-soft);border-color:rgba(var(--accent-rgb),.17);color:var(--accent)}
+.slot.selectable{border-color:rgba(var(--accent-rgb),.42);background:linear-gradient(145deg,rgba(var(--accent-rgb),.09),rgba(255,255,255,.02));animation:slotPulse31 1.6s ease-in-out infinite}
+.spin-restriction{background:rgba(var(--accent-rgb),.08);border-color:rgba(var(--accent-rgb),.17);color:var(--text)}
+.spin-card.rolling{border-color:rgba(var(--accent-rgb),.4);animation:spinBreath31 .72s ease-in-out infinite}
+.spin-card.spin-land-flash{animation:spinLand31 .5s cubic-bezier(.2,.9,.2,1.12)}
+.ovr-panel{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 16px;margin-bottom:12px;border:1px solid rgba(var(--accent-rgb),.22);border-radius:20px;background:radial-gradient(240px 120px at 100% 0%,rgba(var(--accent-rgb),.12),transparent 70%),linear-gradient(180deg,#171d24,#11161c);box-shadow:var(--shadow-soft)}
+.ovr-caption{margin-top:4px;font-size:10px;color:var(--muted)}.live-team-ovr{min-width:78px;text-align:right;font-size:48px;line-height:.9;font-weight:1000;letter-spacing:-.07em;color:var(--accent);text-shadow:0 0 24px rgba(var(--accent-rgb),.16)}.live-team-ovr.ovr-pop{animation:ovrPop31 .36s cubic-bezier(.2,.9,.2,1.15)}
+.respin-btn{width:100%;margin-top:8px}.respin-btn.ready{border-color:rgba(var(--accent-rgb),.30);color:var(--accent)}
+.branding-panel,.season-dashboard{margin:12px 0;padding:17px;border:1px solid var(--line-strong);border-radius:24px;background:radial-gradient(420px 180px at 100% 0%,rgba(var(--accent-rgb),.10),transparent 68%),linear-gradient(180deg,#171d24,#10151b);box-shadow:var(--shadow)}
+.branding-title{margin-top:5px;font-size:27px;line-height:1;font-weight:1000;letter-spacing:-.045em}.branding-copy{margin-top:9px;color:var(--muted);font-size:11px;line-height:1.5}.branding-reveal{display:flex;align-items:center;gap:13px;margin:16px 0;padding:13px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}.branding-reveal.reveal-pop{animation:brandPop31 .42s cubic-bezier(.2,.9,.2,1.1)}.branding-abbr{display:flex;align-items:center;justify-content:center;width:62px;height:62px;border-radius:17px;background:linear-gradient(145deg,var(--brand-a,#2a3440),var(--brand-b,#11161c));border:1px solid rgba(255,255,255,.15);font-size:18px;font-weight:1000;box-shadow:0 10px 25px rgba(0,0,0,.22)}.branding-name{font-size:17px;font-weight:950}.branding-meta{margin-top:4px;color:var(--muted);font-size:10px}.branding-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.season-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}.season-team-name{margin-top:4px;font-size:25px;font-weight:1000;letter-spacing:-.04em}.season-context{margin-top:4px;font-size:10px;color:var(--muted)}.season-record-wrap{text-align:right}.season-record{font-size:43px;line-height:.9;font-weight:1000;letter-spacing:-.065em}.playoff-record{margin-top:5px;font-size:10px;color:var(--gold);font-weight:850}.season-chips{display:flex;gap:6px;overflow:auto;margin:14px 0 10px;scrollbar-width:none}.next-game-card{padding:15px;border:1px solid rgba(var(--accent-rgb),.22);border-radius:19px;background:linear-gradient(145deg,rgba(var(--accent-rgb),.075),rgba(255,255,255,.018));overflow:hidden}.next-label{font-size:9px;letter-spacing:.18em;color:var(--accent);font-weight:950}.matchup-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-top:13px}.matchup-side{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:5px}.matchup-side.right{text-align:right}.matchup-side span{grid-column:1/-1;font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.matchup-side strong{font-size:34px;line-height:.9;font-weight:1000;letter-spacing:-.055em}.matchup-side small{font-size:8px;color:var(--muted);font-weight:850}.versus{font-size:11px;color:var(--muted);font-weight:950}.next-meta{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);text-align:center}.season-actions{display:grid;grid-template-columns:1.2fr .8fr;gap:8px;margin-top:10px}.standings-snapshot{margin-top:10px;font-size:10px;color:var(--muted)}.standings-snapshot strong{color:var(--text)}.season-log-card{margin-bottom:0!important}.game{grid-template-columns:34px 1fr auto}.game .game-record{margin-top:3px;font-size:8px;color:var(--muted)}.game.playoff-game{border-color:rgba(243,204,116,.22);background:rgba(243,204,116,.035)}.seed-badge{display:inline-flex;padding:3px 6px;border-radius:999px;background:rgba(243,204,116,.10);color:var(--gold);font-size:8px;font-weight:900}.final-headline{margin-top:8px;font-size:clamp(26px,8vw,40px);font-weight:1000;letter-spacing:-.055em}.result-banner.champion{border-color:rgba(243,204,116,.4);background:radial-gradient(420px 220px at 50% 0%,rgba(243,204,116,.19),transparent 70%),linear-gradient(180deg,#211b10,#12130f)}.result-banner.champion .final-headline{color:var(--gold)}
+@keyframes ovrPop31{0%{transform:scale(.8);opacity:.45}65%{transform:scale(1.09)}100%{transform:none;opacity:1}}@keyframes brandPop31{0%{transform:scale(.965);opacity:.4}65%{transform:scale(1.018)}100%{transform:none;opacity:1}}@keyframes slotPulse31{50%{box-shadow:0 0 20px rgba(var(--accent-rgb),.09)}}@keyframes spinBreath31{50%{box-shadow:0 18px 48px rgba(0,0,0,.28),0 0 26px rgba(var(--accent-rgb),.10)}}@keyframes spinLand31{0%{transform:scale(.985)}55%{transform:scale(1.016);border-color:rgba(var(--accent-rgb),.5)}100%{transform:none}}
+/* Build 3.1 graphite cleanup — neutral surfaces, team color only as accent */
+.card,.setup-shell,.rules-panel{background:linear-gradient(180deg,rgba(24,29,36,.96),rgba(16,20,25,.97))}
+.spin-card{background:radial-gradient(420px 180px at 90% 0%,rgba(var(--accent-rgb),.10),transparent 65%),linear-gradient(180deg,#191f27,#11161c)}
+.spin-card::before{border-color:rgba(var(--accent-rgb),.10);box-shadow:0 0 0 26px rgba(var(--accent-rgb),.02),0 0 0 52px rgba(var(--accent-rgb),.012)}
+.btn.secondary{background:#171d24;border-color:var(--line);color:var(--text)}
+.pill.active span{color:var(--text)}.pill.active small{color:var(--muted)}
+.progress-pill small{color:var(--muted)}
+.slot.just-filled::after{color:var(--accent-ink)}
+@media(max-width:430px){.season-actions{grid-template-columns:1fr}.branding-actions{grid-template-columns:1fr}.live-team-ovr{font-size:44px}.season-record{font-size:38px}.matchup-side strong{font-size:30px}}
+
 </style>
 </head>
 <body>
@@ -82,7 +112,7 @@ button{font:inherit}.hidden{display:none!important}
     <div class="kicker">Football roster challenge</div>
     <div class="title">17–0</div>
     <div class="subtitle">Build one roster from 32 teams. Every spin matters, every pick locks a franchise, and one perfect season is the goal.</div>
-    <div class="build-badge"><span class="live-dot"></span>BUILD 3.0 • WEEK 1 REFRESH</div>
+    <div class="build-badge"><span class="live-dot"></span>BUILD 3.1 • FRANCHISE SEASON</div>
   </section>
 
   <section id="setup" class="setup-shell">
@@ -119,47 +149,94 @@ button{font:inherit}.hidden{display:none!important}
       </div>
       <div id="visionInfo" class="mode-info">Ratings On shows player OVRs and coach grades while you draft.</div>
     </div>
+    <div class="setup-option">
+      <div class="option-head"><span class="step-num">05</span><div><div class="section-title">Favorite Team Theme</div><div class="option-sub">Purely visual. Your franchise spin still determines the schedule.</div></div></div>
+      <select id="themeSelect" class="theme-select" aria-label="Favorite Team Theme"><option value="GRAPHITE">Graphite (Default)</option></select>
+    </div>
     <button class="btn primary launch-btn" id="startBtn"><span>Start Challenge</span><span aria-hidden="true">→</span></button>
   </section>
 
   <main id="game" class="hidden">
-    <div class="draft-meta game-hud">
+    <div id="draftHud" class="draft-meta game-hud">
       <span class="meta-chip">Mode: <strong id="challengeBadge">Classic</strong></span>
       <span class="meta-chip">Difficulty: <strong id="difficultyBadge">Normal</strong></span>
-      <span class="meta-chip">Unique teams used: <strong id="teamsUsed">0</strong>/32</span>
+      <span class="meta-chip">Teams used: <strong id="teamsUsed">0</strong>/32</span>
+      <span class="meta-chip">Draft respin: <strong id="draftRespinStatus">1 left</strong></span>
       <span id="capChip" class="meta-chip hidden">Cap left: <strong id="capRemaining">$120.0M</strong></span>
     </div>
-    <section class="spin-card">
-      <div class="spin-label">Your spin</div>
+
+    <section id="ovrPanel" class="ovr-panel">
+      <div><div id="ovrLabel" class="eyebrow">PROJECTED OVR</div><div class="ovr-caption">Your roster strength updates with every pick.</div></div>
+      <div id="liveTeamOvr" class="live-team-ovr">72</div>
+    </section>
+
+    <section id="draftSpinner" class="spin-card">
+      <div class="spin-label">Your draft spin</div>
       <div id="spinTeam" class="spin-team">Ready?</div>
       <div id="spinEra" class="spin-era hidden"></div>
       <div id="spinRestriction" class="spin-restriction hidden"></div>
       <div id="spinHelp" class="spin-help">Tap SPIN TEAM, choose an empty position, then pick a player card.</div>
-      <button id="spinBtn" class="btn primary" style="margin-top:14px">SPIN TEAM</button>
+      <button id="spinBtn" class="btn primary">SPIN TEAM</button>
+      <button id="draftRespinBtn" class="btn secondary respin-btn" disabled>RESPIN ×1</button>
     </section>
 
-    <section class="card roster-shell">
+    <section id="rosterPanel" class="card roster-shell">
       <div class="roster-head">
         <div><div class="eyebrow">DEPTH CHART</div><div class="section-title" style="margin:0">Your roster</div></div>
         <div class="progress-pill"><span id="filledCount">0</span><small>/10</small></div>
       </div>
       <div class="slots" id="slots" style="margin-top:10px"></div>
-      <button id="simBtn" class="btn primary" style="margin-top:12px" disabled>SIMULATE 17 GAMES</button>
-      <div class="row" style="margin-top:8px">
-        <button id="undoBtn" class="btn secondary" disabled>Undo Last Pick</button>
-        <button id="restartBtn" class="btn danger">Restart</button>
+      <button id="restartBtn" class="btn danger" style="width:100%;margin-top:12px">Restart Challenge</button>
+    </section>
+
+    <section id="brandingPanel" class="branding-panel hidden">
+      <div class="eyebrow">FRANCHISE IDENTITY</div>
+      <div class="branding-title">Choose Your Franchise</div>
+      <div class="branding-copy">This team gives you your 2026 schedule, conference, division, and season branding. Your fantasy roster and Final OVR stay exactly the same.</div>
+      <div id="brandingReveal" class="branding-reveal">
+        <div id="brandingAbbr" class="branding-abbr">NFL</div>
+        <div><div id="brandingName" class="branding-name">Spin when you're ready</div><div id="brandingMeta" class="branding-meta">32 franchises available</div></div>
       </div>
+      <button id="brandingSpinBtn" class="btn primary">SPIN FRANCHISE</button>
+      <div class="branding-actions">
+        <button id="brandingRespinBtn" class="btn secondary" disabled>BRANDING RESPIN ×1</button>
+        <button id="acceptBrandingBtn" class="btn secondary" disabled>LOCK FRANCHISE</button>
+      </div>
+    </section>
+
+    <section id="seasonDashboard" class="season-dashboard hidden">
+      <div class="season-top">
+        <div><div class="eyebrow">2026 SEASON</div><div id="seasonTeamName" class="season-team-name">Franchise</div><div id="seasonContext" class="season-context">Regular Season</div></div>
+        <div class="season-record-wrap"><div id="seasonRecord" class="season-record">0–0</div><div id="playoffRecord" class="playoff-record hidden">Playoffs 0–0</div></div>
+      </div>
+      <div class="season-chips">
+        <span class="meta-chip">Final OVR <strong id="seasonTeamOvr">--</strong></span>
+        <span class="meta-chip">Status <strong id="seasonStatus">Week 1</strong></span>
+        <span id="seedChip" class="meta-chip hidden">Seed <strong id="seasonSeed">--</strong></span>
+      </div>
+      <div id="nextGameCard" class="next-game-card">
+        <div class="next-label" id="nextGameLabel">NEXT GAME</div>
+        <div class="matchup-row"><div class="matchup-side"><span>YOU</span><strong id="yourMatchOvr">--</strong><small>OVR</small></div><div class="versus">VS</div><div class="matchup-side right"><span id="nextOpponent">Opponent</span><strong id="oppMatchOvr">--</strong><small>OVR</small></div></div>
+        <div id="nextGameMeta" class="next-meta">Schedule loading…</div>
+      </div>
+      <div class="season-actions">
+        <button id="simNextBtn" class="btn primary">SIM NEXT GAME</button>
+        <button id="simRestBtn" class="btn secondary">SIM REST OF SEASON</button>
+      </div>
+      <div id="standingsSnapshot" class="standings-snapshot"></div>
+      <section class="card season-log-card"><div class="section-title" id="gameLogTitle">Game Log</div><div id="seasonGames" class="games"></div></section>
     </section>
   </main>
 
   <section id="results" class="hidden">
     <div class="result-banner">
-      <div class="small">FINAL RECORD • <span id="resultDifficulty">NORMAL</span></div>
+      <div class="small" id="resultDifficulty">SEASON COMPLETE</div>
+      <div id="finalHeadline" class="final-headline">SEASON COMPLETE</div>
       <div id="record" class="record">0–0</div>
-      <div id="resultText" style="font-weight:900"></div>
+      <div id="resultText" style="font-weight:850"></div>
     </div>
     <section class="card">
-      <div class="section-title">Team report</div>
+      <div class="section-title">Final Team Report</div>
       <div class="stats">
         <div class="stat"><strong id="teamOvr">--</strong><span>Team OVR</span></div>
         <div class="stat"><strong id="offOvr">--</strong><span>Offense</span></div>
@@ -169,7 +246,7 @@ button{font:inherit}.hidden{display:none!important}
       <div id="revealRoster" class="slots" style="margin-top:10px"></div>
     </section>
     <section class="card">
-      <div class="section-title">17-game season</div>
+      <div class="section-title">Season Journey</div>
       <div id="games" class="games"></div>
     </section>
     <div class="row">
@@ -180,9 +257,9 @@ button{font:inherit}.hidden{display:none!important}
 
   <details class="rules-panel">
     <summary><span>How the challenge works</span><span class="summary-icon">+</span></summary>
-    <div class="rules-body"><b>Current NFL:</b> spin one of 32 teams using a Week 1 2026 roster snapshot. <b>All-Time:</b> spin franchises and choose from legends. <b>Eras:</b> every spin gives you both a franchise and a decade. A franchise can only be used <b>once per run</b>. <b>Salary Cap</b> uses pool-balanced budgets — <b>$120M Current, $130M Eras, or $200M All-Time</b>. Prices recalculate from each card's OVR, so roster and rating updates automatically flow into the cap economy. <b>Normal</b> allows any open slot, <b>Competitive</b> offers three, and <b>Hardcore</b> forces a depth card. <b>Blind</b> hides OVRs and coach grades until the season is simulated.</div>
+    <div class="rules-body"><b>Draft:</b> build the same 10-slot roster across Current, All-Time, or Eras. Your <b>Projected OVR</b> rises with every pick and becomes your Final OVR when the roster is complete. You get <b>one Draft Respin</b> per run, and picks cannot be undone. <b>Franchise:</b> after the draft, spin a current NFL team to inherit its real 2026 17-game schedule, with one separate Branding Respin. <b>Season:</b> simulate week-by-week or finish the regular season automatically while the other 31 teams play in the background. Seven teams per conference make the playoffs, the #1 seeds receive byes, and surviving teams can reach the Super Bowl. <b>Favorite Team Theme</b> changes only the site's colors and stays saved on this device.</div>
   </details>
-  <div class="footer">Unofficial fan-made challenge • Current rosters refreshed for Week 1, September 2026 • OVRs and cap prices are original game values informed by current depth charts and Madden 27 ratings.</div>
+  <div class="footer">Unofficial fan-made challenge • Build 3.1 embeds the 2026 regular-season schedule and simulates league standings/playoffs locally • Team/player OVRs and Salary Cap prices are original game values, not official NFL, Madden, or contract figures.</div>
 </div>
 <div id="playerPicker" class="picker-overlay hidden" aria-hidden="true">
   <section class="picker-sheet" role="dialog" aria-modal="true" aria-labelledby="pickerTitle">
@@ -467,8 +544,22 @@ Object.assign(eraQB2,{
 });
 
 
+
+// Build 3.1 league identity, schedule and theme data
+const teamMeta={
+ ARI:{conf:'NFC',div:'NFC West'},ATL:{conf:'NFC',div:'NFC South'},BAL:{conf:'AFC',div:'AFC North'},BUF:{conf:'AFC',div:'AFC East'},CAR:{conf:'NFC',div:'NFC South'},CHI:{conf:'NFC',div:'NFC North'},CIN:{conf:'AFC',div:'AFC North'},CLE:{conf:'AFC',div:'AFC North'},
+ DAL:{conf:'NFC',div:'NFC East'},DEN:{conf:'AFC',div:'AFC West'},DET:{conf:'NFC',div:'NFC North'},GB:{conf:'NFC',div:'NFC North'},HOU:{conf:'AFC',div:'AFC South'},IND:{conf:'AFC',div:'AFC South'},JAX:{conf:'AFC',div:'AFC South'},KC:{conf:'AFC',div:'AFC West'},
+ LV:{conf:'AFC',div:'AFC West'},LAC:{conf:'AFC',div:'AFC West'},LAR:{conf:'NFC',div:'NFC West'},MIA:{conf:'AFC',div:'AFC East'},MIN:{conf:'NFC',div:'NFC North'},NE:{conf:'AFC',div:'AFC East'},NO:{conf:'NFC',div:'NFC South'},NYG:{conf:'NFC',div:'NFC East'},
+ NYJ:{conf:'AFC',div:'AFC East'},PHI:{conf:'NFC',div:'NFC East'},PIT:{conf:'AFC',div:'AFC North'},SF:{conf:'NFC',div:'NFC West'},SEA:{conf:'NFC',div:'NFC West'},TB:{conf:'NFC',div:'NFC South'},TEN:{conf:'AFC',div:'AFC South'},WAS:{conf:'NFC',div:'NFC East'}
+};
+const themePalettes={
+ GRAPHITE:['#91a7bd','#657b91'],ARI:['#e43b57','#97233f'],ATL:['#e4495b','#8d1427'],BAL:['#9a84e8','#4a3a8f'],BUF:['#4d8fff','#c60c30'],CAR:['#49b9ef','#1673a3'],CHI:['#f36a24','#8f3512'],CIN:['#ff7138','#b32c00'],CLE:['#ff5a24','#7b3d11'],DAL:['#8ca8c6','#3a5f91'],DEN:['#ff6b31','#274c77'],DET:['#55b7e8','#4f6f80'],GB:['#ffbf36','#46644f'],HOU:['#e34758','#35526a'],IND:['#5593d1','#2f5a87'],JAX:['#38adb5','#a48a5e'],KC:['#ef5364','#d39b27'],LV:['#c7cbd1','#7b828b'],LAC:['#5dc4ff','#f1c339'],LAR:['#5b9cff','#f5a623'],MIA:['#37b7bd','#f17b42'],MIN:['#9a70d7','#e2b541'],NE:['#6686a8','#d54b5b'],NO:['#d8bd82','#8e7a52'],NYG:['#5f82cf','#c54f5d'],NYJ:['#4c9b72','#2e684b'],PHI:['#39a4a7','#55797b'],PIT:['#f2c134','#8f7b45'],SF:['#e64b4b','#b49a65'],SEA:['#65c73f','#4e7ca5'],TB:['#e74d54','#a58e70'],TEN:['#65a9dc','#335779'],WAS:['#e7b93f','#8d3535']
+};
+const leagueSchedule=[{week:1,away:'NE',home:'SEA'},{week:1,away:'SF',home:'LAR'},{week:1,away:'ATL',home:'PIT'},{week:1,away:'BAL',home:'IND'},{week:1,away:'BUF',home:'HOU'},{week:1,away:'CHI',home:'CAR'},{week:1,away:'CLE',home:'JAX'},{week:1,away:'NO',home:'DET'},{week:1,away:'NYJ',home:'TEN'},{week:1,away:'TB',home:'CIN'},{week:1,away:'ARI',home:'LAC'},{week:1,away:'GB',home:'MIN'},{week:1,away:'MIA',home:'LV'},{week:1,away:'WAS',home:'PHI'},{week:1,away:'DAL',home:'NYG'},{week:1,away:'DEN',home:'KC'},{week:2,away:'DET',home:'BUF'},{week:2,away:'CAR',home:'ATL'},{week:2,away:'CIN',home:'HOU'},{week:2,away:'CLE',home:'TB'},{week:2,away:'GB',home:'NYJ'},{week:2,away:'MIN',home:'CHI'},{week:2,away:'NO',home:'BAL'},{week:2,away:'PHI',home:'TEN'},{week:2,away:'PIT',home:'NE'},{week:2,away:'JAX',home:'DEN'},{week:2,away:'LV',home:'LAC'},{week:2,away:'MIA',home:'SF'},{week:2,away:'SEA',home:'ARI'},{week:2,away:'WAS',home:'DAL'},{week:2,away:'IND',home:'KC'},{week:2,away:'NYG',home:'LAR'},{week:3,away:'ATL',home:'GB'},{week:3,away:'CAR',home:'CLE'},{week:3,away:'CIN',home:'PIT'},{week:3,away:'HOU',home:'IND'},{week:3,away:'KC',home:'MIA'},{week:3,away:'LAC',home:'BUF'},{week:3,away:'NE',home:'JAX'},{week:3,away:'NYJ',home:'DET'},{week:3,away:'SEA',home:'WAS'},{week:3,away:'TEN',home:'NYG'},{week:3,away:'ARI',home:'SF'},{week:3,away:'MIN',home:'TB'},{week:3,away:'BAL',home:'DAL'},{week:3,away:'LV',home:'NO'},{week:3,away:'LAR',home:'DEN'},{week:3,away:'PHI',home:'CHI'},{week:4,away:'PIT',home:'CLE'},{week:4,away:'IND',home:'WAS'},{week:4,away:'ARI',home:'NYG'},{week:4,away:'DAL',home:'HOU'},{week:4,away:'GB',home:'TB'},{week:4,away:'JAX',home:'CIN'},{week:4,away:'LAR',home:'PHI'},{week:4,away:'NE',home:'BUF'},{week:4,away:'NYJ',home:'CHI'},{week:4,away:'TEN',home:'BAL'},{week:4,away:'MIA',home:'MIN'},{week:4,away:'DEN',home:'SF'},{week:4,away:'KC',home:'LV'},{week:4,away:'LAC',home:'SEA'},{week:4,away:'DET',home:'CAR'},{week:4,away:'ATL',home:'NO'},{week:5,away:'TB',home:'DAL'},{week:5,away:'PHI',home:'JAX'},{week:5,away:'CIN',home:'MIA'},{week:5,away:'CLE',home:'NYJ'},{week:5,away:'HOU',home:'TEN'},{week:5,away:'IND',home:'PIT'},{week:5,away:'LV',home:'NE'},{week:5,away:'MIN',home:'NO'},{week:5,away:'NYG',home:'WAS'},{week:5,away:'DEN',home:'LAC'},{week:5,away:'CHI',home:'GB'},{week:5,away:'DET',home:'ARI'},{week:5,away:'SF',home:'SEA'},{week:5,away:'BAL',home:'ATL'},{week:5,away:'BUF',home:'LAR'},{week:6,away:'SEA',home:'DEN'},{week:6,away:'HOU',home:'JAX'},{week:6,away:'BAL',home:'CLE'},{week:6,away:'CAR',home:'PHI'},{week:6,away:'CHI',home:'ATL'},{week:6,away:'NO',home:'NYG'},{week:6,away:'NYJ',home:'NE'},{week:6,away:'PIT',home:'TB'},{week:6,away:'TEN',home:'IND'},{week:6,away:'ARI',home:'LAR'},{week:6,away:'BUF',home:'LV'},{week:6,away:'LAC',home:'KC'},{week:6,away:'DAL',home:'GB'},{week:6,away:'WAS',home:'SF'},{week:7,away:'NE',home:'CHI'},{week:7,away:'PIT',home:'NO'},{week:7,away:'CIN',home:'BAL'},{week:7,away:'CLE',home:'TEN'},{week:7,away:'IND',home:'MIN'},{week:7,away:'MIA',home:'NYJ'},{week:7,away:'NYG',home:'HOU'},{week:7,away:'SF',home:'ATL'},{week:7,away:'TB',home:'CAR'},{week:7,away:'DEN',home:'ARI'},{week:7,away:'GB',home:'DET'},{week:7,away:'LAR',home:'LV'},{week:7,away:'KC',home:'SEA'},{week:7,away:'DAL',home:'PHI'},{week:8,away:'CAR',home:'GB'},{week:8,away:'ARI',home:'DAL'},{week:8,away:'ATL',home:'TB'},{week:8,away:'BAL',home:'BUF'},{week:8,away:'CLE',home:'PIT'},{week:8,away:'IND',home:'JAX'},{week:8,away:'LV',home:'NYJ'},{week:8,away:'MIN',home:'DET'},{week:8,away:'TEN',home:'CIN'},{week:8,away:'LAC',home:'LAR'},{week:8,away:'KC',home:'DEN'},{week:8,away:'NE',home:'MIA'},{week:8,away:'PHI',home:'WAS'},{week:8,away:'CHI',home:'SEA'},{week:9,away:'JAX',home:'BAL'},{week:9,away:'CIN',home:'ATL'},{week:9,away:'CLE',home:'NO'},{week:9,away:'DAL',home:'IND'},{week:9,away:'DEN',home:'CAR'},{week:9,away:'DET',home:'MIA'},{week:9,away:'LAR',home:'WAS'},{week:9,away:'NYG',home:'PHI'},{week:9,away:'NYJ',home:'KC'},{week:9,away:'HOU',home:'LAC'},{week:9,away:'LV',home:'SF'},{week:9,away:'ARI',home:'SEA'},{week:9,away:'GB',home:'NE'},{week:9,away:'TB',home:'CHI'},{week:9,away:'BUF',home:'MIN'},{week:10,away:'WAS',home:'NYG'},{week:10,away:'NE',home:'DET'},{week:10,away:'BUF',home:'NYJ'},{week:10,away:'CAR',home:'NO'},{week:10,away:'HOU',home:'CLE'},{week:10,away:'JAX',home:'TEN'},{week:10,away:'KC',home:'ATL'},{week:10,away:'MIA',home:'IND'},{week:10,away:'MIN',home:'GB'},{week:10,away:'SEA',home:'LV'},{week:10,away:'LAR',home:'ARI'},{week:10,away:'SF',home:'DAL'},{week:10,away:'PIT',home:'CIN'},{week:10,away:'LAC',home:'BAL'},{week:11,away:'IND',home:'HOU'},{week:11,away:'ARI',home:'KC'},{week:11,away:'BAL',home:'CAR'},{week:11,away:'JAX',home:'NYG'},{week:11,away:'MIA',home:'BUF'},{week:11,away:'NO',home:'CHI'},{week:11,away:'TB',home:'DET'},{week:11,away:'TEN',home:'DAL'},{week:11,away:'NYJ',home:'LAC'},{week:11,away:'LV',home:'DEN'},{week:11,away:'PIT',home:'PHI'},{week:11,away:'MIN',home:'SF'},{week:11,away:'CIN',home:'WAS'},{week:12,away:'GB',home:'LAR'},{week:12,away:'CHI',home:'DET'},{week:12,away:'PHI',home:'DAL'},{week:12,away:'KC',home:'BUF'},{week:12,away:'DEN',home:'PIT'},{week:12,away:'ATL',home:'MIN'},{week:12,away:'BAL',home:'HOU'},{week:12,away:'LV',home:'CLE'},{week:12,away:'NO',home:'CIN'},{week:12,away:'NYG',home:'IND'},{week:12,away:'NYJ',home:'MIA'},{week:12,away:'TEN',home:'JAX'},{week:12,away:'SEA',home:'SF'},{week:12,away:'WAS',home:'ARI'},{week:12,away:'NE',home:'LAC'},{week:12,away:'CAR',home:'TB'},{week:13,away:'KC',home:'LAR'},{week:13,away:'CIN',home:'CLE'},{week:13,away:'DET',home:'ATL'},{week:13,away:'GB',home:'NO'},{week:13,away:'JAX',home:'CHI'},{week:13,away:'LAC',home:'TB'},{week:13,away:'SF',home:'NYG'},{week:13,away:'WAS',home:'TEN'},{week:13,away:'MIA',home:'DEN'},{week:13,away:'PHI',home:'ARI'},{week:13,away:'BUF',home:'NE'},{week:13,away:'CAR',home:'MIN'},{week:13,away:'HOU',home:'PIT'},{week:13,away:'DAL',home:'SEA'},{week:14,away:'MIN',home:'NE'},{week:14,away:'ATL',home:'CLE'},{week:14,away:'CHI',home:'MIA'},{week:14,away:'DEN',home:'NYJ'},{week:14,away:'HOU',home:'WAS'},{week:14,away:'IND',home:'PHI'},{week:14,away:'NO',home:'CAR'},{week:14,away:'TB',home:'BAL'},{week:14,away:'TEN',home:'DET'},{week:14,away:'LAC',home:'LV'},{week:14,away:'KC',home:'CIN'},{week:14,away:'LAR',home:'SF'},{week:14,away:'NYG',home:'SEA'},{week:14,away:'BUF',home:'GB'},{week:14,away:'PIT',home:'JAX'},{week:15,away:'SF',home:'LAC'},{week:15,away:'SEA',home:'PHI'},{week:15,away:'CHI',home:'BUF'},{week:15,away:'ATL',home:'WAS'},{week:15,away:'BAL',home:'PIT'},{week:15,away:'CIN',home:'CAR'},{week:15,away:'CLE',home:'NYG'},{week:15,away:'IND',home:'TEN'},{week:15,away:'JAX',home:'HOU'},{week:15,away:'MIA',home:'GB'},{week:15,away:'NO',home:'TB'},{week:15,away:'NYJ',home:'ARI'},{week:15,away:'DAL',home:'LAR'},{week:15,away:'DEN',home:'LV'},{week:15,away:'DET',home:'MIN'},{week:15,away:'NE',home:'KC'},{week:16,away:'HOU',home:'PHI'},{week:16,away:'GB',home:'CHI'},{week:16,away:'BUF',home:'DEN'},{week:16,away:'LAR',home:'SEA'},{week:16,away:'ARI',home:'NO'},{week:16,away:'CLE',home:'BAL'},{week:16,away:'LAC',home:'MIA'},{week:16,away:'NE',home:'NYJ'},{week:16,away:'TEN',home:'LV'},{week:16,away:'CAR',home:'PIT'},{week:16,away:'CIN',home:'IND'},{week:16,away:'SF',home:'KC'},{week:16,away:'TB',home:'ATL'},{week:16,away:'WAS',home:'MIN'},{week:16,away:'JAX',home:'DAL'},{week:16,away:'NYG',home:'DET'},{week:17,away:'BAL',home:'CIN'},{week:17,away:'BUF',home:'MIA'},{week:17,away:'IND',home:'CLE'},{week:17,away:'MIN',home:'NYJ'},{week:17,away:'NO',home:'ATL'},{week:17,away:'NYG',home:'DAL'},{week:17,away:'PIT',home:'TEN'},{week:17,away:'SEA',home:'CAR'},{week:17,away:'LV',home:'ARI'},{week:17,away:'DEN',home:'NE'},{week:17,away:'DET',home:'CHI'},{week:17,away:'KC',home:'LAC'},{week:17,away:'LAR',home:'TB'},{week:17,away:'WAS',home:'JAX'},{week:17,away:'PHI',home:'SF'},{week:17,away:'HOU',home:'GB'},{week:18,away:'CLE',home:'CIN'},{week:18,away:'LAC',home:'DEN'},{week:18,away:'NYJ',home:'BUF'},{week:18,away:'ATL',home:'CAR'},{week:18,away:'CHI',home:'MIN'},{week:18,away:'DAL',home:'WAS'},{week:18,away:'DET',home:'GB'},{week:18,away:'JAX',home:'IND'},{week:18,away:'LV',home:'KC'},{week:18,away:'MIA',home:'NE'},{week:18,away:'PHI',home:'NYG'},{week:18,away:'PIT',home:'BAL'},{week:18,away:'SF',home:'ARI'},{week:18,away:'SEA',home:'LAR'},{week:18,away:'TB',home:'NO'},{week:18,away:'TEN',home:'HOU'}];
+let nflTeamRatings={};
+
 function capBudget(){return pool==='alltime'?200:pool==='eras'?130:120}
-let pool='current',vision='normal',difficulty='normal',challenge='classic',roster={},currentSpin=null,history=[],season=null,selectedSlot=null,spinAnimating=false,spinToken=0,usedTeams=new Set(),lastDraftedKey=null,draftLock=false,simAnimating=false;
+let pool='current',vision='normal',difficulty='normal',challenge='classic',roster={},currentSpin=null,season=null,selectedSlot=null,spinAnimating=false,spinToken=0,usedTeams=new Set(),lastDraftedKey=null,draftLock=false,simAnimating=false,phase='setup',draftRespinAvailable=true,brandingRespinAvailable=true,brandingTeam=null,brandingFirstAbbr=null,brandingSpinAnimating=false,userSchedule=[],leagueStandings=null,leagueGameResults=new Map(),simulatedWeeks=new Set(),leagueCurrentWeek=0,postseason=null,autoSimRunning=false,lastDisplayedOvr=72;
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500)}
 function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
@@ -480,12 +571,25 @@ function setDifficulty(d){
   const info={normal:'<b>Normal:</b> every empty roster slot is available after each spin.',competitive:'<b>Competitive:</b> each spin randomly offers only 3 of your remaining empty lineup slots.',hardcore:'<b>Hardcore:</b> each spin forces a position group and depth card — like QB2, RB1, or WR3 — and you must place it in a compatible empty slot.'};
   $('#difficultyInfo').innerHTML=info[d];
 }
-function setVision(v){vision=v;$$('#visionButtons .pill').forEach(b=>b.classList.toggle('active',b.dataset.vision===v));$('#visionInfo').textContent=v==='blind'?'Blind hides every OVR and coach grade while you draft and reveals them after the 17-game simulation. Ball knowledge only.':'Ratings On shows player OVRs and coach grades on every selection card.'}
+function setVision(v){vision=v;$$('#visionButtons .pill').forEach(b=>b.classList.toggle('active',b.dataset.vision===v));$('#visionInfo').textContent=v==='blind'?'Blind hides individual player OVRs and coach grades while you draft. Your aggregate Projected OVR remains visible.':'Ratings On shows player OVRs and coach grades on every selection card.'}
 $$('#poolButtons .pill').forEach(b=>b.addEventListener('click',()=>setPool(b.dataset.pool)));
 $$('#challengeButtons .pill').forEach(b=>b.addEventListener('click',()=>setChallenge(b.dataset.challenge)));
 $$('#difficultyButtons .pill').forEach(b=>b.addEventListener('click',()=>setDifficulty(b.dataset.difficulty)));
 $$('#visionButtons .pill').forEach(b=>b.addEventListener('click',()=>setVision(b.dataset.vision)));
-$('#startBtn').addEventListener('click',startGame);$('#spinBtn').addEventListener('click',spin);$('#simBtn').addEventListener('click',simulate);$('#restartBtn').addEventListener('click',()=>{if(confirm('Restart this challenge?'))startGame()});$('#undoBtn').addEventListener('click',undo);$('#sameModeBtn').addEventListener('click',startGame);$('#changeModeBtn').addEventListener('click',()=>{resetState();$('#results').classList.add('hidden');$('#game').classList.add('hidden');$('#setup').classList.remove('hidden');window.scrollTo(0,0)});$('#closePicker').addEventListener('click',closePicker);$('#playerPicker').addEventListener('click',e=>{if(e.target===$('#playerPicker'))closePicker()});
+$('#startBtn').addEventListener('click',startGame);
+$('#spinBtn').addEventListener('click',spin);
+$('#draftRespinBtn').addEventListener('click',draftRespin);
+$('#restartBtn').addEventListener('click',()=>{if(confirm('Restart this challenge?'))startGame()});
+$('#brandingSpinBtn').addEventListener('click',brandingSpin);
+$('#brandingRespinBtn').addEventListener('click',brandingRespin);
+$('#acceptBrandingBtn').addEventListener('click',finalizeBranding);
+$('#simNextBtn').addEventListener('click',simNextGame);
+$('#simRestBtn').addEventListener('click',simRestOfSeason);
+$('#sameModeBtn').addEventListener('click',startGame);
+$('#changeModeBtn').addEventListener('click',()=>{resetState();phase='setup';$('#results').classList.add('hidden');$('#game').classList.add('hidden');$('#setup').classList.remove('hidden');window.scrollTo(0,0)});
+$('#closePicker').addEventListener('click',closePicker);
+$('#playerPicker').addEventListener('click',e=>{if(e.target===$('#playerPicker'))closePicker()});
+$('#themeSelect').addEventListener('change',e=>applyTheme(e.target.value,true));
 
 function difficultyName(){return difficulty==='competitive'?'Competitive':difficulty==='hardcore'?'Hardcore':'Normal'}
 function challengeName(){return challenge==='salary'?'Salary Cap':'Classic'}
@@ -496,11 +600,16 @@ function renderMeta(){
   if($('#challengeBadge'))$('#challengeBadge').textContent=challengeName();
   if($('#difficultyBadge'))$('#difficultyBadge').textContent=difficultyName();
   if($('#teamsUsed'))$('#teamsUsed').textContent=usedTeams.size;
-  if($('#capChip')){$('#capChip').classList.toggle('hidden',challenge!=='salary');if(challenge==='salary'){const chip=$('#capChip');chip.classList.remove('cap-flash');void chip.offsetWidth;chip.classList.add('cap-flash');setTimeout(()=>chip.classList.remove('cap-flash'),450)}}
+  if($('#draftRespinStatus'))$('#draftRespinStatus').textContent=draftRespinAvailable?'1 left':'used';
+  if($('#capChip')){$('#capChip').classList.toggle('hidden',challenge!=='salary')}
   if($('#capRemaining')){const left=capLeft();$('#capRemaining').textContent=money(left);$('#capRemaining').className=left<15?'cap-danger':left<30?'cap-low':'cap-good'}
+  renderLiveOvr();renderDraftRespin();
 }
-function resetState(){roster={};currentSpin=null;history=[];season=null;selectedSlot=null;spinAnimating=false;simAnimating=false;draftLock=false;lastDraftedKey=null;spinToken++;usedTeams.clear();closePicker();renderMeta();if($('#simBtn')){$('#simBtn').textContent='SIMULATE 17 GAMES';$('#simBtn').classList.remove('simulating')}}
-function startGame(){resetState();$('#setup').classList.add('hidden');$('#results').classList.add('hidden');$('#game').classList.remove('hidden');$('#spinTeam').textContent='Ready?';$('#spinEra').classList.add('hidden');$('#spinRestriction').classList.add('hidden');$('#spinHelp').textContent=(pool==='eras'?'Tap SPIN TEAM + ERA. ':'Tap SPIN TEAM. ')+(challenge==='salary'?money(capBudget())+' cap • ':'')+'Every franchise can only be used once this run.';$('#spinBtn').textContent=pool==='eras'?'SPIN TEAM + ERA':'SPIN TEAM';$('#spinBtn').disabled=false;renderMeta();renderSlots();window.scrollTo({top:0,behavior:'smooth'})}
+function resetState(){
+  roster={};currentSpin=null;season=null;selectedSlot=null;spinAnimating=false;simAnimating=false;draftLock=false;lastDraftedKey=null;spinToken++;usedTeams.clear();phase='draft';draftRespinAvailable=true;brandingRespinAvailable=true;brandingTeam=null;brandingFirstAbbr=null;brandingSpinAnimating=false;userSchedule=[];leagueStandings=null;leagueGameResults=new Map();simulatedWeeks.clear();leagueCurrentWeek=0;postseason=null;autoSimRunning=false;lastDisplayedOvr=72;closePicker();
+  $('#draftSpinner')?.classList.remove('hidden');$('#brandingPanel')?.classList.add('hidden');$('#seasonDashboard')?.classList.add('hidden');$('#draftHud')?.classList.remove('hidden');$('#rosterPanel')?.classList.remove('hidden');$('#ovrPanel')?.classList.remove('hidden');if($('#brandingAbbr'))$('#brandingAbbr').textContent='NFL';if($('#brandingName'))$('#brandingName').textContent='Spin for your franchise';if($('#brandingMeta'))$('#brandingMeta').textContent='Your branding team determines your real 2026 schedule.';renderMeta();
+}
+function startGame(){resetState();$('#setup').classList.add('hidden');$('#results').classList.add('hidden');$('#game').classList.remove('hidden');$('#spinTeam').textContent='Ready?';$('#spinEra').classList.add('hidden');$('#spinRestriction').classList.add('hidden');$('#spinHelp').textContent=(pool==='eras'?'Tap SPIN TEAM + ERA. ':'Tap SPIN TEAM. ')+(challenge==='salary'?money(capBudget())+' cap • ':'')+'Every franchise can only be used once during the draft.';$('#spinBtn').textContent=pool==='eras'?'SPIN TEAM + ERA':'SPIN TEAM';$('#spinBtn').disabled=false;renderMeta();renderSlots();window.scrollTo({top:0,behavior:'smooth'})}
 function openSlotKeys(){return slotsDef.map(x=>x[0]).filter(k=>!roster[k])}
 function sample(arr,n){const copy=[...arr];shuffle(copy);return copy.slice(0,Math.min(n,copy.length))}
 function buildDifficultyRules(spinObj){
@@ -544,16 +653,27 @@ function spin(){
     if(shownEra){$('#spinEra').textContent=shownEra;$('#spinEra').classList.remove('hidden')}else{$('#spinEra').classList.add('hidden')}
     step++;
     if(step<total){setTimeout(tick,42+step*6)}else{
-      spinAnimating=false;currentSpin=finalSpin;spinCard.classList.remove('rolling','spin-land-flash');void spinCard.offsetWidth;spinCard.classList.add('landed','spin-land-flash');setTimeout(()=>spinCard.classList.remove('spin-land-flash'),620);
+      spinAnimating=false;currentSpin=finalSpin;renderDraftRespin();spinCard.classList.remove('rolling','spin-land-flash');void spinCard.offsetWidth;spinCard.classList.add('landed','spin-land-flash');setTimeout(()=>spinCard.classList.remove('spin-land-flash'),620);
       $('#spinRestriction').textContent=restrictionText(finalSpin);$('#spinRestriction').classList.remove('hidden');
       if(challenge==='salary'&&!hasAffordableCurrentSpinChoice()){
-        currentSpin=null;$('#spinRestriction').textContent='Salary Cap safety • no affordable legal card';$('#spinHelp').textContent=`${finalSpin.team.name} was too expensive for your remaining cap, so this spin was voided. Re-spin for free.`;$('#spinBtn').disabled=false;renderSlots();toast('Unaffordable spin voided — re-spin!');setTimeout(()=>spinCard.classList.remove('landed'),520);return;
+        currentSpin=null;renderDraftRespin();$('#spinRestriction').textContent='Salary Cap safety • no affordable legal card';$('#spinHelp').textContent=`${finalSpin.team.name} was too expensive for your remaining cap, so this spin was voided. Re-spin for free.`;$('#spinBtn').disabled=false;renderSlots();toast('Unaffordable spin voided — re-spin!');setTimeout(()=>spinCard.classList.remove('landed'),520);return;
       }
       $('#spinHelp').textContent=difficulty==='normal'?'Team locked! Choose an empty roster slot.':difficulty==='competitive'?'Team locked! Choose one of the highlighted positions.':'Team locked! Place the forced depth card in a highlighted compatible slot.';
       renderSlots();setTimeout(()=>spinCard.classList.remove('landed'),520);
     }
   }
   tick();
+}
+function renderDraftRespin(){const b=$('#draftRespinBtn');if(!b)return;const ready=phase==='draft'&&draftRespinAvailable&&!!currentSpin&&!spinAnimating&&Object.keys(roster).length<TOTAL_SLOTS;b.disabled=!ready;b.textContent=draftRespinAvailable?'RESPIN ×1':'RESPIN USED';b.classList.toggle('ready',ready)}
+function legalRespinCandidates(oldSpin){
+  const available=teams.filter(t=>!usedTeams.has(t.abbr)&&t.abbr!==oldSpin.team.abbr),out=[];
+  if(pool==='eras'){for(const era of eras){for(const team of available){if(era==='2020s'||eraStars[team.abbr]?.[era])out.push({...oldSpin,team,era})}}}else available.forEach(team=>out.push({...oldSpin,team,era:null}));
+  if(challenge!=='salary')return out;return out.filter(s=>{const prev=currentSpin;currentSpin=s;const ok=hasAffordableCurrentSpinChoice();currentSpin=prev;return ok});
+}
+function draftRespin(){
+  if(!draftRespinAvailable||!currentSpin||spinAnimating||phase!=='draft')return;const old=currentSpin,candidates=legalRespinCandidates(old);if(!candidates.length){toast('No legal respin is available.');return}
+  draftRespinAvailable=false;const finalSpin=pick(candidates),token=++spinToken;spinAnimating=true;currentSpin=null;renderMeta();renderSlots();const sc=$('#draftSpinner');sc.classList.add('rolling');$('#spinHelp').textContent='Using your one draft respin…';let step=0;
+  const tick=()=>{if(token!==spinToken)return;const preview=step>=12?finalSpin:pick(candidates);$('#spinTeam').textContent=preview.team.name;if(pool==='eras'){$('#spinEra').textContent=preview.era;$('#spinEra').classList.remove('hidden')}step++;if(step<13)setTimeout(tick,45+step*5);else{spinAnimating=false;currentSpin=finalSpin;sc.classList.remove('rolling');sc.classList.add('spin-land-flash');$('#spinRestriction').textContent=restrictionText(finalSpin);$('#spinRestriction').classList.remove('hidden');$('#spinHelp').textContent='Respin locked. Choose a highlighted roster slot.';renderMeta();renderSlots();setTimeout(()=>sc.classList.remove('spin-land-flash'),520)}};tick();
 }
 function stableJitter(text,max=4){let h=0;for(let i=0;i<text.length;i++)h=(h*31+text.charCodeAt(i))>>>0;return h%(max+1)}
 function baseCard(name,ovr,source,depth,type='player',grade=null){return{name,ovr,source,depth,type,grade}}
@@ -662,11 +782,9 @@ function chooseCard(c,cardEl){
   setTimeout(()=>finalizeCardPick(c,key,spentSpin,aff),cardEl?245:0);
 }
 function finalizeCardPick(c,key,spentSpin,aff){
-  roster[key]={...c,_teamAbbr:spentSpin.team.abbr,_cost:challenge==='salary'?aff.cost:0};usedTeams.add(spentSpin.team.abbr);history.push({key,teamAbbr:spentSpin.team.abbr});currentSpin=null;lastDraftedKey=key;closePicker();draftLock=false;
-  $('#spinTeam').textContent='Pick locked in';$('#spinEra').classList.add('hidden');$('#spinRestriction').classList.add('hidden');$('#spinHelp').textContent=challenge==='salary'?`${spentSpin.team.name} locked out • ${money(capLeft())} cap remaining. Spin again.`:`${spentSpin.team.name} is now locked out for this run. Spin again.`;$('#spinBtn').disabled=Object.keys(roster).length>=TOTAL_SLOTS;renderMeta();renderSlots();setTimeout(()=>{lastDraftedKey=null},520);if(Object.keys(roster).length>=TOTAL_SLOTS)toast(challenge==='salary'?`Roster complete with ${money(capLeft())} left — simulate!`:'Roster complete — simulate your season!')
-}
-function undo(){
-  if(!history.length||spinAnimating)return;const last=history.pop();delete roster[last.key];usedTeams.delete(last.teamAbbr);currentSpin=null;closePicker();$('#spinTeam').textContent='Pick undone';$('#spinEra').classList.add('hidden');$('#spinRestriction').classList.add('hidden');$('#spinHelp').textContent=challenge==='salary'?`That franchise is available again • ${money(capLeft())} cap remaining.`:'That franchise is available again. Spin again.';$('#spinBtn').disabled=false;renderMeta();renderSlots()
+  roster[key]={...c,_teamAbbr:spentSpin.team.abbr,_cost:challenge==='salary'?aff.cost:0};usedTeams.add(spentSpin.team.abbr);currentSpin=null;lastDraftedKey=key;closePicker();draftLock=false;
+  $('#spinTeam').textContent='Pick locked in';$('#spinEra').classList.add('hidden');$('#spinRestriction').classList.add('hidden');$('#spinHelp').textContent=challenge==='salary'?`${spentSpin.team.name} locked out • ${money(capLeft())} cap remaining.`:`${spentSpin.team.name} is now locked out for this run.`;renderMeta();renderSlots();setTimeout(()=>{lastDraftedKey=null},520);
+  if(Object.keys(roster).length>=TOTAL_SLOTS){toast('Roster complete — Final OVR locked!');setTimeout(enterBrandingPhase,520)}else $('#spinBtn').disabled=false;
 }
 function renderSlots(target='#slots',reveal=false){
   const root=$(target);root.innerHTML='';slotsDef.forEach(([key,label])=>{
@@ -678,72 +796,67 @@ function renderSlots(target='#slots',reveal=false){
     const costLine=c&&challenge==='salary'?` • ${money(c._cost||cardCost(c))}`:'';
     b.innerHTML=`<div class="slot-key">${label}</div>${c?`<div class="slot-name">${c.name}</div><div class="slot-team">${c.source}${c.depth?' • '+c.depth:''}${costLine}</div>${rating}`:`<div class="slot-name" style="color:#789180">Empty</div><div class="slot-team">${emptyText}</div>`}`;root.appendChild(b)
   });
-  if(target==='#slots'){$('#filledCount').textContent=Object.keys(roster).length;$('#simBtn').disabled=Object.keys(roster).length<TOTAL_SLOTS||spinAnimating;$('#undoBtn').disabled=!history.length||spinAnimating}
+  if(target==='#slots'){$('#filledCount').textContent=Object.keys(roster).length;renderLiveOvr();renderDraftRespin()}
 }
 function numberToGrade(n){if(n>=98)return'A+';if(n>=94)return'A';if(n>=91)return'A-';if(n>=88)return'B+';if(n>=85)return'B';if(n>=82)return'B-';if(n>=79)return'C+';if(n>=76)return'C';if(n>=73)return'C-';if(n>=70)return'D+';if(n>=67)return'D';if(n>=64)return'D-';return'F'}
 
-const oppNames=['Kansas City','Buffalo','Philadelphia','Baltimore','Green Bay','Detroit','Seattle','Denver','San Francisco','Los Angeles','Dallas','Houston','Minnesota','Chicago','Tampa Bay','Cincinnati','Pittsburgh','Jacksonville','New England','Arizona','Atlanta','Carolina','Cleveland','Indianapolis','Las Vegas','Miami','New Orleans','New York','Tennessee','Washington'];
 function randRange(a,b){return a+Math.random()*(b-a)}
 function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
-function starCore(){
-  const g=k=>roster[k].ovr;let bonus=0;
-  if(g('qb')>=95)bonus+=.7;else if(g('qb')>=92)bonus+=.3;
-  const eliteSkill=[g('rb1'),g('wr1'),g('wr2'),g('te')].filter(v=>v>=94).length;bonus+=Math.min(1.2,eliteSkill*.4);
-  const stars=['qb','rb1','rb2','wr1','wr2','wr3','te','ol'].map(g).filter(v=>v>=92).length;bonus+=Math.min(.8,stars*.12);
-  return Math.min(2.3,bonus);
-}
-function teamMetrics(){
-  const g=k=>roster[k].ovr,coach=g('coach'),starPower=starCore();
-  const rawOffense=g('qb')*.25+g('rb1')*.10+g('rb2')*.04+g('wr1')*.14+g('wr2')*.09+g('wr3')*.05+g('te')*.08+g('ol')*.25;
-  const offense=clamp(rawOffense+starPower*.7+(coach-85)*.05,60,99),def=g('def');
-  const total=offense*.58+def*.30+coach*.12;
-  const eliteCore=[g('qb'),g('rb1'),g('wr1'),g('wr2'),g('te')].filter(v=>v>=94).length;
-  return{offense:Math.round(offense),offenseRaw:offense,defense:Math.round(def),total:Math.round(total),coach,starPower,eliteCore};
-}
-function makeSchedule(){
-  const games=[];
-  const profiles={
-    current:[[77,82,3],[82,87,8],[87,92,4],[92,95,2]],
-    eras:[[83,88,3],[88,93,8],[93,96,4],[96,99,2]],
-    alltime:[[87,91,3],[91,95,8],[95,98,4],[98,99,2]]
-  };
-  const bump=difficulty==='hardcore'?1:difficulty==='competitive'?.5:0;
-  profiles[pool].forEach(([lo,hi,count])=>{for(let i=0;i<count;i++)games.push(clamp(randRange(lo+bump,hi+bump),72,99))});return shuffle(games);
-}
-function runSeasonSimulation(){
-  if(Object.keys(roster).length<TOTAL_SLOTS)return;
-  const m=teamMetrics(),games=[],schedule=makeSchedule();let wins=0;
-  for(let i=0;i<17;i++){
-    const opp=schedule[i],oppOff=clamp(opp+randRange(-2,2),76,97),oppDef=clamp(opp+randRange(-2,2),76,97),oppCoach=clamp(84+(opp-84)*.45+randRange(-2.5,2.5),76,96);
-    const expectedMargin=(m.offenseRaw-oppDef)*.58+(m.defense-oppOff)*.34+(m.coach-oppCoach)*.12+m.starPower*.9;
-    let p=clamp(1/(1+Math.exp(-expectedMargin/3.2)),.06,.97);
-    // Elite multi-star offenses get a more realistic floor against teams they should beat.
-    if(m.eliteCore>=3&&opp<=88)p=Math.min(.98,p+.035);if(m.offenseRaw>=94)p=Math.min(.98,p+.015);
-    const win=Math.random()<p;if(win)wins++;
-    const yourBase=22+(m.offenseRaw-84)*.72-(oppDef-84)*.34+(m.coach-84)*.07;
-    const oppBase=21+(oppOff-84)*.62-(m.defense-84)*.48-(m.coach-oppCoach)*.035;
-    const yourNoise=(randRange(-5,5)+randRange(-5,5))*.55,oppNoise=(randRange(-5,5)+randRange(-5,5))*.55;
-    let ys=clamp(Math.round(yourBase+yourNoise),9,52),os=clamp(Math.round(oppBase+oppNoise),6,48);
-    if(win&&ys<=os)ys=os+pick([1,3,4,7]);if(!win&&os<=ys)os=ys+pick([1,3,4,7]);
-    games.push({week:i+1,opp:pick(oppNames),oppOvr:Math.round(opp),win,ys,os});
-  }
-  season={wins,losses:17-wins,games,m};showResults();
-}
-function simulate(){
-  if(Object.keys(roster).length<TOTAL_SLOTS||simAnimating)return;simAnimating=true;const btn=$('#simBtn');btn.disabled=true;btn.textContent='SIMULATING SEASON…';btn.classList.add('simulating');
-  setTimeout(()=>{runSeasonSimulation();simAnimating=false;btn.classList.remove('simulating');btn.textContent='SIMULATE 17 GAMES'},620);
-}
-function showResults(){
-  $('#resultDifficulty').textContent=(challengeName()+' • '+difficultyName()).toUpperCase();$('#game').classList.add('hidden');const results=$('#results');results.classList.remove('hidden');
-  const banner=$('.result-banner');banner.classList.remove('results-enter','perfect-burst');void banner.offsetWidth;banner.classList.add('results-enter');if(season.wins===17)banner.classList.add('perfect-burst');
-  const perfect=season.wins===17,record=$('#record');record.textContent=`${season.wins}–${season.losses}`;record.classList.toggle('perfect',perfect);record.classList.remove('score-pop');void record.offsetWidth;record.classList.add('score-pop');
-  $('#resultText').textContent=perfect?'PERFECT SEASON. YOU WENT 17–0 🏆':season.wins>=15?'So close — that roster was ridiculous.':season.wins>=12?'Contender. You built a serious team.':season.wins>=9?'Winning season, but not quite 17–0.':'The spins cooked you this time.';
-  $('#teamOvr').textContent=season.m.total;$('#offOvr').textContent=season.m.offense;$('#defOvr').textContent=season.m.defense;$('#resultCapSummary').classList.toggle('hidden',challenge!=='salary');if(challenge==='salary')$('#resultCapSpend').textContent=money(capSpent())+' / '+money(capBudget());renderSlots('#revealRoster',true);
-  const root=$('#games');root.innerHTML='';season.games.forEach((g,i)=>{const d=document.createElement('div');d.className='game game-in';d.style.animationDelay=(Math.min(i,8)*45)+'ms';d.innerHTML=`<div class="wl ${g.win?'w':'l'}">${g.win?'W':'L'}</div><div class="opp">Week ${g.week} vs ${g.opp}<div class="small">Opponent OVR ${g.oppOvr}</div></div><div class="score">${g.ys}–${g.os}</div>`;root.appendChild(d)});window.scrollTo({top:0,behavior:'smooth'})
-}
+const replacementOvr={qb:72,rb1:72,rb2:70,wr1:72,wr2:70,wr3:68,te:70,ol:72,def:72,coach:77};
+function starCoreFromValues(v){let bonus=0;if(v.qb>=95)bonus+=.7;else if(v.qb>=92)bonus+=.3;const eliteSkill=[v.rb1,v.wr1,v.wr2,v.te].filter(x=>x>=94).length;bonus+=Math.min(1.2,eliteSkill*.4);const stars=['qb','rb1','rb2','wr1','wr2','wr3','te','ol'].map(k=>v[k]).filter(x=>x>=92).length;bonus+=Math.min(.8,stars*.12);return Math.min(2.3,bonus)}
+function metricsFromValues(v){const coach=v.coach,starPower=starCoreFromValues(v);const rawOffense=v.qb*.25+v.rb1*.10+v.rb2*.04+v.wr1*.14+v.wr2*.09+v.wr3*.05+v.te*.08+v.ol*.25;const offense=clamp(rawOffense+starPower*.7+(coach-85)*.05,60,99),def=v.def,total=offense*.58+def*.30+coach*.12;return{offense:Math.round(offense),offenseRaw:offense,defense:Math.round(def),total:Math.round(clamp(total,60,99)),coach,starPower}}
+function projectedTeamMetrics(){const v={};for(const [k] of slotsDef)v[k]=roster[k]?.ovr??replacementOvr[k];return metricsFromValues(v)}
+function teamMetrics(){return projectedTeamMetrics()}
+function renderLiveOvr(){const el=$('#liveTeamOvr');if(!el)return;const m=projectedTeamMetrics(),complete=Object.keys(roster).length===TOTAL_SLOTS;$('#ovrLabel').textContent=complete?'FINAL OVR':'PROJECTED OVR';if(Number(el.textContent)!==m.total){el.textContent=m.total;el.classList.remove('ovr-pop');void el.offsetWidth;el.classList.add('ovr-pop');setTimeout(()=>el.classList.remove('ovr-pop'),380)}lastDisplayedOvr=m.total}
+function currentTeamValues(t){return{qb:rankRating('qb',t.qb.rank,t.qb.name),rb1:rankRating('rb',t.rb[0].rank,t.rb[0].name),rb2:rankRating('rb',t.rb[1].rank,t.rb[1].name),wr1:rankRating('wr',t.wr[0].rank,t.wr[0].name),wr2:rankRating('wr',t.wr[1].rank,t.wr[1].name),wr3:rankRating('wr',t.wr[2].rank,t.wr[2].name),te:rankRating('te',t.te.rank,t.te.name),ol:currentOLRating(t.abbr),def:defenseRatingFromRanks(t.abbr),coach:gradeValue[coachGradeFromRank(t.abbr)]}}
+function buildNFLTeamRatings(){const out={};teams.forEach(t=>out[t.abbr]=metricsFromValues(currentTeamValues(t)).total);nflTeamRatings=out;return out}
+function teamName(abbr){return teams.find(t=>t.abbr===abbr)?.name||abbr}
+function scheduleFor(abbr){return leagueSchedule.filter(g=>g.away===abbr||g.home===abbr).sort((a,b)=>a.week-b.week)}
+function validateLeagueData(){const codes=teams.map(t=>t.abbr),counts=Object.fromEntries(codes.map(x=>[x,0])),weekly={};for(const g of leagueSchedule){counts[g.away]++;counts[g.home]++;weekly[g.week]??=new Set();if(weekly[g.week].has(g.away)||weekly[g.week].has(g.home))throw Error('Team scheduled twice in week '+g.week);weekly[g.week].add(g.away);weekly[g.week].add(g.home)}if(leagueSchedule.length!==272)throw Error('Schedule must contain 272 games');if(codes.some(c=>counts[c]!==17))throw Error('Every team must have 17 games');const ratings=buildNFLTeamRatings();if(Object.keys(teamMeta).length!==32||Object.keys(ratings).length!==32||Object.values(ratings).some(x=>x<60||x>99))throw Error('League metadata/rating validation failed');return true}
+function rgbFromHex(hex){const n=parseInt(hex.slice(1),16);return[(n>>16)&255,(n>>8)&255,n&255]}
+function applyTheme(code,persist=false){const key=themePalettes[code]?code:'GRAPHITE',[a,b]=themePalettes[key],rgb=rgbFromHex(a),lum=(.2126*rgb[0]+.7152*rgb[1]+.0722*rgb[2])/255,root=document.documentElement;root.style.setProperty('--accent',a);root.style.setProperty('--accent-deep',b);root.style.setProperty('--accent-rgb',rgb.join(','));root.style.setProperty('--accent-ink',lum>.58?'#071015':'#f7fbff');$('#themeSelect').value=key;if(persist)try{localStorage.setItem('seventeen0.favoriteTheme',key)}catch(e){}}
+function initThemes(){const s=$('#themeSelect');teams.forEach(t=>{const o=document.createElement('option');o.value=t.abbr;o.textContent=t.name;s.appendChild(o)});let saved='GRAPHITE';try{saved=localStorage.getItem('seventeen0.favoriteTheme')||'GRAPHITE'}catch(e){}applyTheme(saved,false)}
+function renderBranding(team){const [a,b]=themePalettes[team.abbr]||themePalettes.GRAPHITE,meta=teamMeta[team.abbr];$('#brandingAbbr').textContent=team.abbr;$('#brandingReveal').style.setProperty('--brand-a',a);$('#brandingReveal').style.setProperty('--brand-b',b);$('#brandingName').textContent=team.name;$('#brandingMeta').textContent=`${meta.div} • 17-game 2026 schedule`;const r=$('#brandingReveal');r.classList.remove('reveal-pop');void r.offsetWidth;r.classList.add('reveal-pop');setTimeout(()=>r.classList.remove('reveal-pop'),450)}
+function enterBrandingPhase(){if(Object.keys(roster).length<TOTAL_SLOTS)return;phase='branding';currentSpin=null;$('#draftSpinner').classList.add('hidden');$('#brandingPanel').classList.remove('hidden');$('#seasonDashboard').classList.add('hidden');$('#brandingSpinBtn').disabled=false;$('#brandingRespinBtn').disabled=true;$('#acceptBrandingBtn').disabled=true;renderLiveOvr();$('#brandingPanel').scrollIntoView({behavior:'smooth',block:'start'})}
+function animateBrandSpin(finalTeam,label){if(brandingSpinAnimating)return;brandingSpinAnimating=true;$('#brandingSpinBtn').disabled=true;$('#brandingRespinBtn').disabled=true;$('#acceptBrandingBtn').disabled=true;let i=0;const tick=()=>{const shown=i>=13?finalTeam:pick(teams);renderBranding(shown);i++;if(i<14)setTimeout(tick,45+i*5);else{brandingSpinAnimating=false;brandingTeam=finalTeam;renderBranding(finalTeam);$('#brandingSpinBtn').disabled=true;$('#brandingRespinBtn').disabled=!brandingRespinAvailable;$('#brandingRespinBtn').textContent=brandingRespinAvailable?'BRANDING RESPIN ×1':'BRANDING RESPIN USED';$('#acceptBrandingBtn').disabled=false;toast(label)}};tick()}
+function brandingSpin(){if(phase!=='branding'||brandingTeam||brandingSpinAnimating)return;const t=pick(teams);brandingFirstAbbr=t.abbr;animateBrandSpin(t,'Franchise schedule unlocked!')}
+function brandingRespin(){if(phase!=='branding'||!brandingTeam||!brandingRespinAvailable||brandingSpinAnimating)return;const prev=brandingTeam.abbr,candidates=teams.filter(t=>t.abbr!==prev&&t.abbr!==brandingFirstAbbr);brandingRespinAvailable=false;$('#brandingRespinBtn').textContent='BRANDING RESPIN USED';animateBrandSpin(pick(candidates.length?candidates:teams.filter(t=>t.abbr!==prev)),'Branding respin locked!')}
+function finalizeBranding(){if(phase!=='branding'||!brandingTeam||brandingSpinAnimating)return;userSchedule=scheduleFor(brandingTeam.abbr);if(userSchedule.length!==17){toast('Schedule validation failed.');return}phase='regularSeason';$('#brandingPanel').classList.add('hidden');$('#draftHud').classList.add('hidden');$('#rosterPanel').classList.add('hidden');$('#ovrPanel').classList.add('hidden');$('#seasonDashboard').classList.remove('hidden');initLeagueSeason();renderSeasonDashboard();window.scrollTo({top:0,behavior:'smooth'})}
+function newStanding(abbr){return{abbr,w:0,l:0,divW:0,divL:0,confW:0,confL:0,pf:0,pa:0,tieRand:stableJitter('2026-seed-'+abbr,9999)/9999}}
+function initLeagueSeason(){buildNFLTeamRatings();leagueStandings=Object.fromEntries(teams.map(t=>[t.abbr,newStanding(t.abbr)]));leagueGameResults=new Map();simulatedWeeks.clear();leagueCurrentWeek=0;postseason=null;season={m:teamMetrics(),wins:0,losses:0,games:[],playoffGames:[],playoffWins:0,playoffLosses:0,branding:brandingTeam.abbr,champion:null,finish:null};$('#seasonTeamName').textContent=brandingTeam.name;$('#seasonTeamOvr').textContent=season.m.total}
+function gameKey(g){return `${g.week}-${g.away}-${g.home}`}
+function matchupResult(away,home,neutral=false,userOverride=false){const awayOvr=userOverride&&away===brandingTeam?.abbr?season.m.total:nflTeamRatings[away],homeOvr=userOverride&&home===brandingTeam?.abbr?season.m.total:nflTeamRatings[home],edge=homeOvr-awayOvr+(neutral?0:1.4),pHome=clamp(1/(1+Math.exp(-edge/4.6)),.08,.92),homeWin=Math.random()<pHome;let hs=Math.round(clamp(22+(homeOvr-awayOvr)*.34+(neutral?0:1.1)+randRange(-7,7),6,48)),as=Math.round(clamp(21+(awayOvr-homeOvr)*.34+randRange(-7,7),6,48));if(homeWin&&hs<=as)hs=as+pick([1,3,4,7]);if(!homeWin&&as<=hs)as=hs+pick([1,3,4,7]);return{away,home,awayOvr,homeOvr,awayScore:as,homeScore:hs,winner:homeWin?home:away,loser:homeWin?away:home}}
+function recordLeagueResult(g,r){const a=leagueStandings[g.away],h=leagueStandings[g.home],awayWin=r.winner===g.away;a[awayWin?'w':'l']++;h[awayWin?'l':'w']++;a.pf+=r.awayScore;a.pa+=r.homeScore;h.pf+=r.homeScore;h.pa+=r.awayScore;const sameConf=teamMeta[g.away].conf===teamMeta[g.home].conf,sameDiv=teamMeta[g.away].div===teamMeta[g.home].div;if(sameConf){a[awayWin?'confW':'confL']++;h[awayWin?'confL':'confW']++}if(sameDiv){a[awayWin?'divW':'divL']++;h[awayWin?'divL':'divW']++}leagueGameResults.set(gameKey(g),{...r,week:g.week})}
+function simulateLeagueWeek(week,revealUser=true){if(simulatedWeeks.has(week))return;for(const g of leagueSchedule.filter(x=>x.week===week)){const hasUser=brandingTeam&&(g.away===brandingTeam.abbr||g.home===brandingTeam.abbr),r=matchupResult(g.away,g.home,false,hasUser);recordLeagueResult(g,r);if(hasUser&&revealUser){const opp=g.away===brandingTeam.abbr?g.home:g.away,userHome=g.home===brandingTeam.abbr,userScore=userHome?r.homeScore:r.awayScore,oppScore=userHome?r.awayScore:r.homeScore,win=r.winner===brandingTeam.abbr;if(win)season.wins++;else season.losses++;season.games.push({week,opp,oppOvr:nflTeamRatings[opp],home:userHome,win,ys:userScore,os:oppScore,record:`${season.wins}–${season.losses}`})}}simulatedWeeks.add(week);leagueCurrentWeek=Math.max(leagueCurrentWeek,week)}
+function standingPct(s){return s.w/(s.w+s.l||1)}function divPct(s){return s.divW/(s.divW+s.divL||1)}function confPct(s){return s.confW/(s.confW+s.confL||1)}
+function headToHeadScore(a,b){let aw=0,bw=0;for(const r of leagueGameResults.values()){if((r.away===a&&r.home===b)||(r.away===b&&r.home===a)){if(r.winner===a)aw++;else if(r.winner===b)bw++}}return aw===bw?0:(aw>bw?1:-1)}
+function compareTeams(a,b){const A=leagueStandings[a],B=leagueStandings[b];let d=standingPct(B)-standingPct(A);if(Math.abs(d)>.0001)return d;const h=headToHeadScore(a,b);if(h)return -h;if(teamMeta[a].div===teamMeta[b].div){d=divPct(B)-divPct(A);if(Math.abs(d)>.0001)return d}d=confPct(B)-confPct(A);if(Math.abs(d)>.0001)return d;d=(B.pf-B.pa)-(A.pf-A.pa);if(d)return d;return B.tieRand-A.tieRand}
+function seedPlayoffs(){const out={AFC:[],NFC:[]};for(const conf of ['AFC','NFC']){const divs=[...new Set(Object.entries(teamMeta).filter(([,m])=>m.conf===conf).map(([,m])=>m.div))],winners=divs.map(div=>Object.keys(teamMeta).filter(a=>teamMeta[a].div===div).sort(compareTeams)[0]).sort(compareTeams),wild=Object.keys(teamMeta).filter(a=>teamMeta[a].conf===conf&&!winners.includes(a)).sort(compareTeams).slice(0,3);out[conf]=[...winners,...wild].map((abbr,i)=>({abbr,seed:i+1}))}return out}
+function playoffPairings(alive,round){const s=[...alive].sort((a,b)=>a.seed-b.seed);if(round==='WC')return [[s.find(x=>x.seed===2),s.find(x=>x.seed===7)],[s.find(x=>x.seed===3),s.find(x=>x.seed===6)],[s.find(x=>x.seed===4),s.find(x=>x.seed===5)]].filter(p=>p[0]&&p[1]);if(round==='DIV'){const hi=s[0],low=s[s.length-1],middle=s.slice(1,-1);return [[hi,low],[middle[0],middle[1]]]}if(round==='CONF')return [[s[0],s[1]]];return[]}
+function playoffGameResult(a,b,neutral=false){const higher=a.seed<b.seed?a:b,lower=higher===a?b:a,isUser=!!brandingTeam&&(a.abbr===brandingTeam.abbr||b.abbr===brandingTeam.abbr),r=matchupResult(lower.abbr,higher.abbr,neutral,isUser);return{...r,winnerObj:r.winner===higher.abbr?higher:lower,loserObj:r.loser===higher.abbr?higher:lower}}
+function removeAlive(conf,abbr){postseason.alive[conf]=postseason.alive[conf].filter(x=>x.abbr!==abbr)}
+function prepareRound(round){postseason.round=round;postseason.userMatch=null;for(const conf of ['AFC','NFC']){for(const pair of playoffPairings(postseason.alive[conf],round)){const hasUser=pair.some(x=>x.abbr===brandingTeam.abbr);if(hasUser){postseason.userMatch={conf,pair};continue}const r=playoffGameResult(pair[0],pair[1]);removeAlive(conf,r.loser)}}if(round==='WC'&&postseason.userSeed===1){prepareRound('DIV');return}if(postseason.userMatch){renderSeasonDashboard();return}advancePostseasonRound()}
+function advancePostseasonRound(){const r=postseason.round;if(r==='WC')prepareRound('DIV');else if(r==='DIV')prepareRound('CONF');else if(r==='CONF')prepareSuperBowl();}
+function prepareSuperBowl(){postseason.round='SB';const afc=postseason.alive.AFC[0],nfc=postseason.alive.NFC[0];postseason.userMatch=(afc.abbr===brandingTeam.abbr||nfc.abbr===brandingTeam.abbr)?{conf:'SB',pair:[afc,nfc]}:null;if(postseason.userMatch)renderSeasonDashboard();else{const r=playoffGameResult(afc,nfc,true);postseason.champion=r.winner;finishSeason(false,'Missed Super Bowl',r.winner)}}
+function simulateRemainingPostseason(){while(postseason.alive.AFC.length>1||postseason.alive.NFC.length>1){const count=Math.max(postseason.alive.AFC.length,postseason.alive.NFC.length),round=count>=4?'DIV':'CONF';for(const conf of ['AFC','NFC'])for(const pair of playoffPairings(postseason.alive[conf],round)){const r=playoffGameResult(pair[0],pair[1]);removeAlive(conf,r.loser)}}const r=playoffGameResult(postseason.alive.AFC[0],postseason.alive.NFC[0],true);postseason.champion=r.winner;return r.winner}
+function initPostseason(){const seeds=seedPlayoffs(),conf=teamMeta[brandingTeam.abbr].conf,user=seeds[conf].find(x=>x.abbr===brandingTeam.abbr);postseason={seeds,alive:{AFC:[...seeds.AFC],NFC:[...seeds.NFC]},userSeed:user?.seed||null,round:null,userMatch:null,champion:null};if(!user){const champ=simulateFullPostseasonFromSeeds(seeds);finishSeason(false,'Missed Playoffs',champ);return}phase='postseason';$('#seedChip').classList.remove('hidden');$('#seasonSeed').textContent='#'+user.seed;$('#playoffRecord').classList.remove('hidden');prepareRound('WC')}
+function simulateFullPostseasonFromSeeds(seeds){const alive={AFC:[...seeds.AFC],NFC:[...seeds.NFC]};for(const conf of ['AFC','NFC'])for(const p of playoffPairings(alive[conf],'WC')){const r=playoffGameResult(p[0],p[1]);alive[conf]=alive[conf].filter(x=>x.abbr!==r.loser)}for(const round of ['DIV','CONF'])for(const conf of ['AFC','NFC'])for(const p of playoffPairings(alive[conf],round)){const r=playoffGameResult(p[0],p[1]);alive[conf]=alive[conf].filter(x=>x.abbr!==r.loser)}return playoffGameResult(alive.AFC[0],alive.NFC[0],true).winner}
+function roundName(r){return r==='WC'?'Wild Card':r==='DIV'?'Divisional':r==='CONF'?'Conference Championship':'Super Bowl'}
+function simUserPlayoffGame(){if(!postseason?.userMatch||autoSimRunning)return;const round=postseason.round,[a,b]=postseason.userMatch.pair,neutral=round==='SB',user=a.abbr===brandingTeam.abbr?a:b,opp=user===a?b:a,r=playoffGameResult(a,b,neutral),win=r.winner===brandingTeam.abbr;season.playoffGames.push({round:roundName(round),opp:opp.abbr,oppOvr:nflTeamRatings[opp.abbr],win,ys:brandingTeam.abbr===r.home?r.homeScore:r.awayScore,os:brandingTeam.abbr===r.home?r.awayScore:r.homeScore});if(win)season.playoffWins++;else season.playoffLosses++;if(round!=='SB')removeAlive(postseason.userMatch.conf,win?r.loser:brandingTeam.abbr);postseason.userMatch=null;if(!win){const champ=round==='SB'?r.winner:simulateRemainingPostseason();finishSeason(false,'Eliminated — '+roundName(round),champ);return}if(round==='SB'){postseason.champion=brandingTeam.abbr;finishSeason(true,'Super Bowl Champion',brandingTeam.abbr);return}advancePostseasonRound()}
+function simNextGame(){if(phase==='postseason'){simUserPlayoffGame();return}if(phase!=='regularSeason'||autoSimRunning)return;if(season.games.length>=17){initPostseason();return}const target=userSchedule[season.games.length].week;for(let w=leagueCurrentWeek+1;w<=target;w++)simulateLeagueWeek(w,true);renderSeasonDashboard();if(season.games.length>=17)setTimeout(initPostseason,420)}
+async function simRestOfSeason(){if(phase!=='regularSeason'||autoSimRunning)return;autoSimRunning=true;$('#simRestBtn').disabled=true;$('#simNextBtn').disabled=true;while(season.games.length<17){const target=userSchedule[season.games.length].week;for(let w=leagueCurrentWeek+1;w<=target;w++)simulateLeagueWeek(w,true);renderSeasonDashboard();await new Promise(r=>setTimeout(r,120))}autoSimRunning=false;$('#simRestBtn').disabled=false;$('#simNextBtn').disabled=false;initPostseason()}
+function projectedSeedStatus(){if(!leagueStandings||leagueCurrentWeek<4)return `Week ${Math.min(18,leagueCurrentWeek+1)} • standings forming`;const conf=teamMeta[brandingTeam.abbr].conf,teamsConf=Object.keys(teamMeta).filter(a=>teamMeta[a].conf===conf).sort(compareTeams),pos=teamsConf.indexOf(brandingTeam.abbr)+1;return pos<=7?`In ${conf} playoff picture • #${pos}`:`${conf} playoff chase • #${pos}`}
+function renderSeasonDashboard(){if(!season)return;$('#seasonTeamName').textContent=brandingTeam.name;$('#seasonTeamOvr').textContent=season.m.total;$('#seasonRecord').textContent=`${season.wins}–${season.losses}`;$('#playoffRecord').textContent=`Playoffs ${season.playoffWins}–${season.playoffLosses}`;const log=$('#seasonGames');log.innerHTML='';season.games.forEach(g=>appendGameRow(log,g,false));season.playoffGames.forEach(g=>appendGameRow(log,g,true));if(phase==='postseason'&&postseason?.userMatch){const [a,b]=postseason.userMatch.pair,user=a.abbr===brandingTeam.abbr?a:b,opp=user===a?b:a;$('#seasonContext').textContent=roundName(postseason.round);$('#seasonStatus').textContent=roundName(postseason.round);$('#nextGameLabel').textContent='PLAYOFF MATCHUP';$('#nextOpponent').textContent=teamName(opp.abbr);$('#oppMatchOvr').textContent=nflTeamRatings[opp.abbr];$('#yourMatchOvr').textContent=season.m.total;$('#nextGameMeta').textContent=`#${user.seed} ${brandingTeam.abbr} vs #${opp.seed} ${opp.abbr}${postseason.round==='SB'?' • Neutral site':''}`;$('#simNextBtn').textContent='SIM PLAYOFF GAME';$('#simRestBtn').classList.add('hidden');return}$('#seasonContext').textContent='Regular Season';$('#seasonStatus').textContent=projectedSeedStatus();$('#simNextBtn').textContent='SIM NEXT GAME';$('#simRestBtn').classList.remove('hidden');const next=userSchedule[season.games.length];if(next){const opp=next.away===brandingTeam.abbr?next.home:next.away,home=next.home===brandingTeam.abbr;$('#nextGameLabel').textContent=`WEEK ${next.week}`;$('#nextOpponent').textContent=teamName(opp);$('#oppMatchOvr').textContent=nflTeamRatings[opp];$('#yourMatchOvr').textContent=season.m.total;$('#nextGameMeta').textContent=`${home?'HOME • vs':'AWAY • @'} ${opp} • Opponent OVR ${nflTeamRatings[opp]}`}$('#standingsSnapshot').innerHTML=leagueCurrentWeek?`After Week <strong>${leagueCurrentWeek}</strong> • ${projectedSeedStatus()}`:'Your schedule is locked. Sim the first game when ready.'}
+function appendGameRow(root,g,playoff){const d=document.createElement('div');d.className='game game-in'+(playoff?' playoff-game':'');const label=playoff?g.round:`Week ${g.week} ${g.home?'vs':'@'}`;d.innerHTML=`<div class="wl ${g.win?'w':'l'}">${g.win?'W':'L'}</div><div class="opp">${label} ${teamName(g.opp)}<div class="small">Opponent OVR ${g.oppOvr}</div>${!playoff?`<div class="game-record">Record ${g.record}</div>`:''}</div><div class="score">${g.ys}–${g.os}</div>`;root.appendChild(d)}
+function finishSeason(champion,finish,leagueChampion){phase='complete';season.finish=finish;season.champion=leagueChampion;$('#game').classList.add('hidden');$('#results').classList.remove('hidden');const banner=$('.result-banner');banner.classList.toggle('champion',champion);$('#resultDifficulty').textContent=`${brandingTeam.name.toUpperCase()} • ${challengeName().toUpperCase()} • ${difficultyName().toUpperCase()}`;$('#finalHeadline').textContent=champion?'SUPER BOWL CHAMPION':finish.toUpperCase();$('#record').textContent=`${season.wins}–${season.losses}`;$('#record').classList.toggle('perfect',season.wins===17);$('#resultText').textContent=champion?`You took ${brandingTeam.abbr} all the way. Playoff record ${season.playoffWins}–${season.playoffLosses}. 🏆`:`${finish}. League champion: ${teamName(leagueChampion)}. Your playoff record: ${season.playoffWins}–${season.playoffLosses}.`;$('#teamOvr').textContent=season.m.total;$('#offOvr').textContent=season.m.offense;$('#defOvr').textContent=season.m.defense;$('#resultCapSummary').classList.toggle('hidden',challenge!=='salary');if(challenge==='salary')$('#resultCapSpend').textContent=money(capSpent())+' / '+money(capBudget());renderSlots('#revealRoster',true);const root=$('#games');root.innerHTML='';season.games.forEach(g=>appendGameRow(root,g,false));season.playoffGames.forEach(g=>appendGameRow(root,g,true));window.scrollTo({top:0,behavior:'smooth'})}
 
-// Fix visible counter copy to requested 10 categories.
-document.addEventListener('DOMContentLoaded',()=>{document.querySelector('#filledCount').parentElement.lastChild.textContent='/10 filled';});
+
+// Build 3.1 startup validation and theme restoration.
+document.addEventListener('DOMContentLoaded',()=>{
+  initThemes();
+  try{validateLeagueData()}catch(e){console.error('Build 3.1 data validation failed',e);toast('League data validation failed.')}
+  renderLiveOvr();renderDraftRespin();
+});
 </script>
 </body>
 </html>
